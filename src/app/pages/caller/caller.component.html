@@ -1,0 +1,38 @@
+<div class="container">
+  <img src="../../../assets/icons/logo.png" alt="Logo" id="appLogo">
+  <br>
+  <mat-card appearance="outlined">
+    <div class="TwilioText">
+      <h1>Make a call using Twilio</h1>
+      <p>To make a call, type in the phone number and click 'Call'.</p>
+      <p>This will access a Twilio Account and make a call.</p>
+    </div>
+    <mat-card-content>
+    </mat-card-content>
+    <div class="inputAndButtons">
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput placeholder="Enter your phone number" [(ngModel)]="phoneNumber">
+      </mat-form-field>
+      <button mat-raised-button (click)="makeCall()">Call</button>
+      <button mat-raised-button (click)="hangUp()">End Call</button>
+    </div>
+  </mat-card>
+
+  <mat-card appearance="outlined">
+    <div class="TwilioText">
+      <h1>Schedule Push Notifications</h1>
+      <p>Enter the number of seconds you would like to wait until the application triggers a new notification.</p>
+      <p>The goal is to be able to test if the app is able to send notification at the OS level, integrating as a native app would do.</p>
+    </div>
+    <mat-card-content>
+    </mat-card-content>
+    <div class="inputAndButtons">
+      <mat-form-field appearance="outline">
+        <mat-label>Seconds to wait - ex: 5</mat-label>
+        <input matInput placeholder="Seconds to schedule" [(ngModel)]="scheduleNotificationTimeout">
+      </mat-form-field>
+      <button mat-raised-button (click)="scheduleNotification()">Schedule</button>
+    </div>
+  </mat-card>
+</div>
