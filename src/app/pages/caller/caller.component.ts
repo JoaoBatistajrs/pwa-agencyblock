@@ -58,19 +58,12 @@ export class CallerComponent {
     }
   }
 
-  updateScheduleNotificationTimeout(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.scheduleNotificationTimeout = Number(target.value);
-  }
-
   async subscribeUser() {
     if (!('serviceWorker' in navigator)) {
       console.error('Service workers are not supported by this browser.');
       return;
     }
-
     const registration = await navigator.serviceWorker.ready;
-    console.log(navigator.serviceWorker)
     try {
       let subscription = await registration.pushManager.getSubscription();
       if (!subscription) {
@@ -102,7 +95,7 @@ export class CallerComponent {
     console.log('permission', permission)
         if (permission === 'granted') {
           console.log('Notification permission granted.');
-          await this.subscribeUser();
+          await this.subscribeUser(); // Call the updated subscribeUser function
         } else {
           console.log('Notification permission denied.');
         }
@@ -115,9 +108,8 @@ export class CallerComponent {
     }
 
     await this.requestNotificationPermission();
-    console.log('Notification permission granted.');
     const currentTime = new Date();
-    const formattedTime = currentTime.toLocaleTimeString();
+    const formattedTime = currentTime.toLocaleTimeString(); // Formata a hora atual
 
     const payload = {
       title: 'Push notification',

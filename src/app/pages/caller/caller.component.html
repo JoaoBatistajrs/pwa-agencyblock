@@ -30,7 +30,7 @@
     <div class="inputAndButtons">
       <mat-form-field appearance="outline">
         <mat-label>Seconds to wait - ex: 5</mat-label>
-        <input matInput placeholder="Seconds to schedule" [(ngModel)]="scheduleNotificationTimeout">
+        <input matInput placeholder="Seconds to schedule" type="number" [(ngModel)]="scheduleNotificationTimeout">
       </mat-form-field>
       <button mat-raised-button (click)="scheduleNotification()">Schedule</button>
     </div>
