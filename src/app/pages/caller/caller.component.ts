@@ -90,16 +90,15 @@ export class CallerComponent implements OnInit {
       body: `This is a push notification! Current time: ${currentTime}`,
       scheduleNotificationTimeout: this.scheduleNotificationTimeout
     };
-    console.log(payload);
+    console.log('payload', payload);
 
-    await fetch(
-      'https://pushnotificationpi.azurewebsites.net/pushnotification/send-notification',
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }
-    );
+    await fetch('https://pushnotificationpi.azurewebsites.net/pushnotification/send-notification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(response => response.json())
+      .then(data => console.log('Server response:', data))
+      .catch(error => console.error('Error sending notification:', error));
   }
 
   makeCall() {
