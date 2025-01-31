@@ -115,6 +115,7 @@ export class CallerComponent {
     }
 
     await this.requestNotificationPermission();
+    console.log('Notification permission granted.');
     const currentTime = new Date();
     const formattedTime = currentTime.toLocaleTimeString();
 
