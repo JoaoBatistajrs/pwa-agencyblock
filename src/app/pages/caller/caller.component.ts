@@ -95,7 +95,7 @@ export class CallerComponent implements OnInit {
     await fetch('https://pushnotificationpi.azurewebsites.net/pushnotification/send-notification', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ payload: JSON.stringify(payload) }),
     }).then(response => response.json())
       .then(data => console.log('Server response:', data))
       .catch(error => console.error('Error sending notification:', error));
