@@ -116,7 +116,7 @@ export class CallerComponent {
       body: `This is a push notification! Current time: ${formattedTime}`,
       scheduleNotificationTimeout: this.scheduleNotificationTimeout
     };
-
+    console.log(payload);
     await fetch(
       'https://pushnotificationpi.azurewebsites.net/pushnotification/send-notification',
       {
