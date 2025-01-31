@@ -58,6 +58,13 @@ export class CallerComponent {
     }
   }
 
+  urlBase64ToUint8Array(base64String: string) {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+    const rawData = atob(base64);
+    return new Uint8Array([...rawData].map(char => char.charCodeAt(0)));
+  }
+
   async subscribeUser() {
     if (!('serviceWorker' in navigator)) {
       console.error('Service workers are not supported by this browser.');
@@ -67,10 +74,12 @@ export class CallerComponent {
     try {
       let subscription = await registration.pushManager.getSubscription();
       console.log('Log Subscription',subscription);
+
       if (!subscription) {
+        const applicationServerKey = this.urlBase64ToUint8Array('BN9seiGCuLY_kUI1bmgQa-YzQUe4-nGTC_mK6GAz2NrmVwWOySH3dwZsJkD2dWmZC8AA6hxyI7A9SHqcZAZa6oM');
         subscription = await registration.pushManager.subscribe({
             userVisibleOnly: true,
-            applicationServerKey: 'BN9seiGCuLY_kUI1bmgQa-YzQUe4-nGTC_mK6GAz2NrmVwWOySH3dwZsJkD2dWmZC8AA6hxyI7A9SHqcZAZa6oM'
+            applicationServerKey: applicationServerKey
         });
       }
       const response = await fetch('https://pushnotificationpi.azurewebsites.net/pushnotification/subscribe', {
@@ -125,7 +134,7 @@ export class CallerComponent {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ payload: JSON.stringify(payload) }),
+        body: JSON.stringify(payload),
       }
     );
   }
