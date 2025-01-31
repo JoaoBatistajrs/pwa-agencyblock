@@ -66,6 +66,7 @@ export class CallerComponent {
     const registration = await navigator.serviceWorker.ready;
     try {
       let subscription = await registration.pushManager.getSubscription();
+      console.log('Log Subscription',subscription);
       if (!subscription) {
         subscription = await registration.pushManager.subscribe({
             userVisibleOnly: true,
